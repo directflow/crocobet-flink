@@ -25,7 +25,6 @@ public class Property {
             if (isProd()) {
                 replace();
             }
-
         } catch (IOException io) {
             LOGGER.error(io.getMessage(), io);
         }
@@ -47,7 +46,9 @@ public class Property {
     }
 
     private void replaceEach(Object key, Object value) {
-        properties.replace(key, System.getProperty(value.toString(), value.toString()));
+        if (Objects.nonNull(System.getenv(value.toString()))) {
+            properties.replace(key.toString(), System.getenv(value.toString()));
+        }
     }
 
     private String getActiveProfile() {
