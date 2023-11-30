@@ -21,8 +21,8 @@ public class PaymentSinkFunction {
                     statement.setString(3, payment.getFlinkStream());
                     statement.setDouble(4, payment.getAmount());
                 },
-                JdbcConnection.jdbcExecutionOptions(),
-                JdbcConnection.jdbcConnectionOptions()
+                JdbcExecutionFactory.createExecution(),
+                JdbcConnectionFactory.createConnection()
         );
     }
 }
