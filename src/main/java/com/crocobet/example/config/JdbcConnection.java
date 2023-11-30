@@ -5,6 +5,11 @@ import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
 
 public class JdbcConnection {
 
+    /**
+     * Jdbc batch options
+     *
+     * @return JdbcExecutionOptions
+     */
     public static JdbcExecutionOptions jdbcExecutionOptions() {
         return JdbcExecutionOptions.builder()
                 .withBatchSize(1000)
@@ -13,6 +18,11 @@ public class JdbcConnection {
                 .build();
     }
 
+    /**
+     * Jdbc connection builder
+     *
+     * @return JdbcConnectionOptions
+     */
     public static JdbcConnectionOptions jdbcConnectionOptions() {
         return new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
                 .withDriverName("org.postgresql.Driver")

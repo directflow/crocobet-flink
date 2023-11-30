@@ -6,6 +6,12 @@ import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 
 public class PaymentSinkFunction {
 
+    /**
+     * Jdbc payment sink
+     * Insert payment entity received from main example app via pulsar
+     *
+     * @return SinkFunction<Payment>
+     */
     public static SinkFunction<Payment> insert() {
         return JdbcSink.sink(
                 "insert into payments (transaction_id, created_at, flink_stream, amount) values (?, ?, ?, ?)",

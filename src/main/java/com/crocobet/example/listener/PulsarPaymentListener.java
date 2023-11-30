@@ -17,6 +17,11 @@ public class PulsarPaymentListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PulsarPaymentListener.class);
 
+    /**
+     * Create pulsar source
+     *
+     * @return PulsarSource of Payment
+     */
     private static PulsarSource<Payment> getSource() {
         return PulsarSourceBuilder.build(
                 Property.getInstance().get("pulsar.payment-topic-name"),
@@ -24,6 +29,11 @@ public class PulsarPaymentListener {
                 Payment.class);
     }
 
+    /**
+     * Create DataStream of payment from pulsar source without watermarks
+     *
+     * @return DataStream of payment
+     */
     private static DataStream<Payment> getDataStream() {
         return ExecutionEnvironment.getInstance().getEnvironment()
                 .fromSource(getSource(), WatermarkStrategy.noWatermarks(), "Pulsar Payment Source")
@@ -31,6 +41,12 @@ public class PulsarPaymentListener {
                 .uid("pulsarPaymentSource");
     }
 
+    /**
+     * Listen new Payment from pulsar source
+     * Transform Payment object with simple UUID string
+     * Send to sink transformed payment object
+     * Save transformed payment object to db
+     */
     public static void listen() {
 
         DataStream<Payment> paymentDataStream = getDataStream();

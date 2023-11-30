@@ -7,10 +7,16 @@ import com.crocobet.example.listener.PulsarPaymentListener;
 
 public class Application {
 
+    /**
+     * Read and set active profile from args
+     * Start pulsar listener
+     * Execute ExecutionEnvironment
+     *
+     * @param args Run args
+     * @throws Exception On eny error
+     */
     public static void main(String[] args) throws Exception {
         SystemProperty.set(args);
-
-        ExecutionEnvironment.getInstance();
 
         PulsarPaymentListener.listen();
 

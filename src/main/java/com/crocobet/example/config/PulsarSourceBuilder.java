@@ -6,6 +6,15 @@ import org.apache.pulsar.client.impl.schema.JSONSchema;
 
 public class PulsarSourceBuilder {
 
+    /**
+     * Build pulsar source by params
+     *
+     * @param topicName        Pulsar topic name
+     * @param subscriptionName Pulsar subscription name
+     * @param cls              Deserialization class type
+     * @param <T>              Generic type
+     * @return PulsarSource with generic type
+     */
     public static <T> PulsarSource<T> build(String topicName, String subscriptionName, Class<T> cls) {
         return PulsarSource.builder()
                 .setServiceUrl(Property.getInstance().get("pulsar.client.service-url"))
