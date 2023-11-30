@@ -1,7 +1,7 @@
 package com.crocobet.example.listener;
 
 import com.crocobet.example.config.ExecutionEnvironment;
-import com.crocobet.example.config.PaymentSinkFunction;
+import com.crocobet.example.function.PaymentSinkFunction;
 import com.crocobet.example.config.Property;
 import com.crocobet.example.config.PulsarSourceBuilder;
 import com.crocobet.example.domain.Payment;
