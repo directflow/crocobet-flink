@@ -1,9 +1,9 @@
 package com.crocobet.example.listener;
 
-import com.crocobet.example.config.ExecutionEnvironment;
+import com.crocobet.example.config.flnk.ExecutionEnvironment;
 import com.crocobet.example.function.PaymentSinkFunction;
 import com.crocobet.example.config.Property;
-import com.crocobet.example.config.PulsarSourceBuilder;
+import com.crocobet.example.config.flnk.PulsarSourceBuilder;
 import com.crocobet.example.domain.Payment;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.connector.pulsar.source.PulsarSource;
@@ -52,6 +52,7 @@ public class PulsarPaymentListener {
         DataStream<Payment> paymentDataStream = getDataStream();
 
         paymentDataStream
+                .filter(payment -> payment.getAmount() > 200.0)
                 .map(payment -> {
                     payment.setFlinkStream("Flink random:" + UUID.randomUUID());
                     LOGGER.info(payment.toString());

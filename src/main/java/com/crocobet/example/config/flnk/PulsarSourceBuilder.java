@@ -1,5 +1,6 @@
-package com.crocobet.example.config;
+package com.crocobet.example.config.flnk;
 
+import com.crocobet.example.config.Property;
 import org.apache.flink.connector.pulsar.source.PulsarSource;
 import org.apache.flink.connector.pulsar.source.enumerator.cursor.StartCursor;
 import org.apache.pulsar.client.impl.schema.JSONSchema;

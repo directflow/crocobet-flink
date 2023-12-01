@@ -1,7 +1,7 @@
 package com.crocobet.example.function;
 
-import com.crocobet.example.config.JdbcConnectionFactory;
-import com.crocobet.example.config.JdbcExecutionFactory;
+import com.crocobet.example.config.jdbc.JdbcConnectionFactory;
+import com.crocobet.example.config.jdbc.JdbcExecutionFactory;
 import com.crocobet.example.domain.Payment;
 import org.apache.flink.connector.jdbc.JdbcSink;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;

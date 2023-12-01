@@ -9,4 +9,4 @@ WORKDIR $APP_HOME
 RUN groupadd -r -g 1000 user && useradd -r -g user -u 1000 user
 RUN chown -R user:user /app
 USER user
-ENTRYPOINT exec java -jar ${ARTIFACT_NAME} prod
+ENTRYPOINT exec java -jar ${ARTIFACT_NAME}

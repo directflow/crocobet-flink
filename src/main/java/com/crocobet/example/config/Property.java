@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -26,9 +27,8 @@ public class Property {
      * Replace docker-compose environment properties if active profile is prod after load
      */
     private Property() {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(getActiveProfile())) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(getPropertyFile())) {
             properties.load(inputStream);
-
             if (isProd()) {
                 replace();
             }
@@ -52,7 +52,7 @@ public class Property {
      * @return Check result
      */
     private boolean isProd() {
-        return SystemProperty.get().equals("prod");
+        return getActiveProfile().equals("prod");
     }
 
     /**
@@ -76,12 +76,21 @@ public class Property {
     }
 
     /**
-     * Get active profile name from args
+     * Get file by active profile name
      *
-     * @return Active profile name
+     * @return File name
+     */
+    private String getPropertyFile() {
+        return String.format(FILE_NAME, getActiveProfile());
+    }
+
+    /**
+     * Get active profile from docker-compose environment variable or set default as dev
+     *
+     * @return Env property
      */
     private String getActiveProfile() {
-        return String.format(FILE_NAME, SystemProperty.get());
+        return Optional.ofNullable(System.getenv("ACTIVE_PROFILE")).orElse("dev");
     }
 
     /**

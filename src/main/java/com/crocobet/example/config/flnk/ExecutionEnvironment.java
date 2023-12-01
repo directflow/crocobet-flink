@@ -1,4 +1,4 @@
-package com.crocobet.example.config;
+package com.crocobet.example.config.flnk;
 
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;

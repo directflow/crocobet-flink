@@ -1,4 +1,4 @@
-package com.crocobet.example.config;
+package com.crocobet.example.config.jdbc;
 
 import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
 
