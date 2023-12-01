@@ -12,13 +12,13 @@ docker run --name pulsar -p 6650:6650 -p 8080:8080 -d --mount source=pulsardata,
 
 ```
 gradle clean build -x test
-java -jar build/lib/example-all.jar profiles.active=dev
+java -jar build/lib/example-all.jar
 ```
 
 ### Run in Idea
 
 ```
-profiles.active=dev
+run com.crocobet.example.Application
 ```
 
 ## Technologies
