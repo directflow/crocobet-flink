@@ -1,4 +1,4 @@
-package com.crocobet.example.listener;
+package com.crocobet.example.stream;
 
 import com.crocobet.example.config.flnk.PaymentPulsarSource;
 import com.crocobet.example.domain.Payment;
@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-public class PulsarPaymentListener {
+public class PulsarPaymentStream {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PulsarPaymentListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PulsarPaymentStream.class);
 
     private final StreamExecutionEnvironment streamExecutionEnvironment;
 
@@ -23,7 +23,7 @@ public class PulsarPaymentListener {
      *
      * @param streamExecutionEnvironment StreamExecutionEnvironment instance
      */
-    public PulsarPaymentListener(StreamExecutionEnvironment streamExecutionEnvironment) {
+    public PulsarPaymentStream(StreamExecutionEnvironment streamExecutionEnvironment) {
         this.streamExecutionEnvironment = streamExecutionEnvironment;
     }
 
