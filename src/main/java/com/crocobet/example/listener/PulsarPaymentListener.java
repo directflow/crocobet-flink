@@ -1,13 +1,12 @@
 package com.crocobet.example.listener;
 
-import com.crocobet.example.config.flnk.ExecutionEnvironment;
-import com.crocobet.example.function.PaymentSinkFunction;
-import com.crocobet.example.config.Property;
-import com.crocobet.example.config.flnk.PulsarSourceBuilder;
+import com.crocobet.example.config.flnk.PaymentPulsarSource;
 import com.crocobet.example.domain.Payment;
+import com.crocobet.example.function.PaymentSinkFunction;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.connector.pulsar.source.PulsarSource;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,16 +16,24 @@ public class PulsarPaymentListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PulsarPaymentListener.class);
 
+    private final StreamExecutionEnvironment streamExecutionEnvironment;
+
+    /**
+     * Dependency Injection of StreamExecutionEnvironment in constructor
+     *
+     * @param streamExecutionEnvironment StreamExecutionEnvironment instance
+     */
+    public PulsarPaymentListener(StreamExecutionEnvironment streamExecutionEnvironment) {
+        this.streamExecutionEnvironment = streamExecutionEnvironment;
+    }
+
     /**
      * Create pulsar source
      *
      * @return PulsarSource of Payment
      */
-    private static PulsarSource<Payment> getSource() {
-        return PulsarSourceBuilder.build(
-                Property.getInstance().get("pulsar.payment-topic-name"),
-                Property.getInstance().get("pulsar.payment-consumer-name"),
-                Payment.class);
+    private PulsarSource<Payment> getSource() {
+        return PaymentPulsarSource.build();
     }
 
     /**
@@ -34,11 +41,11 @@ public class PulsarPaymentListener {
      *
      * @return DataStream of payment
      */
-    private static DataStream<Payment> getDataStream() {
-        return ExecutionEnvironment.getInstance().getEnvironment()
+    private DataStream<Payment> getDataStream() {
+        return streamExecutionEnvironment
                 .fromSource(getSource(), WatermarkStrategy.noWatermarks(), "Pulsar Payment Source")
-                .name("pulsarPaymentSource")
-                .uid("pulsarPaymentSource");
+                .name("PulsarPaymentSource")
+                .uid("PulsarPaymentSource");
     }
 
     /**
@@ -47,19 +54,16 @@ public class PulsarPaymentListener {
      * Send to sink transformed payment object
      * Save transformed payment object to db
      */
-    public static void listen() {
+    public void run() {
 
-        DataStream<Payment> paymentDataStream = getDataStream();
-
-        paymentDataStream
-                .filter(payment -> payment.getAmount() > 200.0)
+        getDataStream()
                 .map(payment -> {
                     payment.setFlinkStream("Flink random:" + UUID.randomUUID());
                     LOGGER.info(payment.toString());
                     return payment;
                 })
                 .addSink(PaymentSinkFunction.insert())
-                .uid("pulsarPaymentDataStream")
-                .name("pulsarPaymentDataStream");
+                .uid("PulsarPaymentDataStream")
+                .name("PulsarPaymentDataStream");
     }
 }

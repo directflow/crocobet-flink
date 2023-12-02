@@ -1,10 +1,12 @@
 package com.crocobet.example.config.jdbc;
 
 import com.crocobet.example.config.Property;
+import lombok.Getter;
 import org.apache.flink.connector.jdbc.JdbcConnectionOptions;
 
 import java.util.Objects;
 
+@Getter
 public class PostgresJdbcConnection implements JdbcConnection {
 
     private final String url = Property.getInstance().get("datasource.url");
@@ -35,25 +37,25 @@ public class PostgresJdbcConnection implements JdbcConnection {
      */
     @Override
     public int hashCode() {
-        return Objects.hashCode(hashCodeBuilder());
+        return Objects.hashCode((url + username + password));
     }
 
     /**
-     * Override toString for correct working in map
+     * Override equals for correct working in map
      *
-     * @return Concatenated string
+     * @return Boolean result
      */
     @Override
-    public String toString() {
-        return hashCodeBuilder();
-    }
-
-    /**
-     * Concatenate fields
-     *
-     * @return Concatenated string
-     */
-    private String hashCodeBuilder() {
-        return (url + username + password);
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof PostgresJdbcConnection)) {
+            return false;
+        }
+        PostgresJdbcConnection postgresJdbcConnection = (PostgresJdbcConnection) obj;
+        return postgresJdbcConnection.getUrl().equals(this.url)
+                && postgresJdbcConnection.getUsername().equals(this.url)
+                && postgresJdbcConnection.getPassword().equals(this.password);
     }
 }

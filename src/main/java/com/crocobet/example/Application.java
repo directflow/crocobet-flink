@@ -1,21 +1,19 @@
 package com.crocobet.example;
 
 
-import com.crocobet.example.config.flnk.ExecutionEnvironment;
+import com.crocobet.example.config.flnk.StreamExecutionEnvironmentRunner;
 import com.crocobet.example.listener.PulsarPaymentListener;
 
 public class Application {
 
     /**
-     * Start pulsar listener
      * Execute ExecutionEnvironment
+     * Run Pulsar Payment Listener
      *
      * @param args Run args
-     * @throws Exception On eny error
+     * @throws Exception In case of error during creation
      */
     public static void main(String[] args) throws Exception {
-        PulsarPaymentListener.listen();
-
-        ExecutionEnvironment.getInstance().execute();
+        new StreamExecutionEnvironmentRunner(env -> new PulsarPaymentListener(env).run());
     }
 }
