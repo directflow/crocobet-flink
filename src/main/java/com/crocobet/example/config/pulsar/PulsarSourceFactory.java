@@ -1,4 +1,4 @@
-package com.crocobet.example.config.flnk;
+package com.crocobet.example.config.pulsar;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,6 +1,6 @@
 package com.crocobet.example.stream;
 
-import com.crocobet.example.config.flnk.PaymentPulsarSource;
+import com.crocobet.example.config.pulsar.PaymentPulsarSource;
 import com.crocobet.example.domain.Payment;
 import com.crocobet.example.function.PaymentSinkFunction;
 import lombok.RequiredArgsConstructor;

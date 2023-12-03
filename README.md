@@ -20,6 +20,7 @@ java -jar build/lib/example-all.jar
 
 ```
 run com.crocobet.example.Application
+run com.crocobet.example.PaymentServiceTest.generatePaymentsTest in main Example app fro testing
 ```
 
 ## Docker launch

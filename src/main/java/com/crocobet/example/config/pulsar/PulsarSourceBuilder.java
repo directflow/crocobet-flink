@@ -1,4 +1,4 @@
-package com.crocobet.example.config.flnk;
+package com.crocobet.example.config.pulsar;
 
 import com.crocobet.example.config.Property;
 import lombok.Data;
