@@ -55,7 +55,7 @@ public class PostgresJdbcConnection implements JdbcConnection {
         }
         PostgresJdbcConnection postgresJdbcConnection = (PostgresJdbcConnection) obj;
         return postgresJdbcConnection.getUrl().equals(this.url)
-                && postgresJdbcConnection.getUsername().equals(this.url)
+                && postgresJdbcConnection.getUsername().equals(this.username)
                 && postgresJdbcConnection.getPassword().equals(this.password);
     }
 }
