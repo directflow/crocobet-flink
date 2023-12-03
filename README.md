@@ -29,6 +29,10 @@ run com.crocobet.example.PaymentServiceTest.generatePaymentsTest in main Example
 User docker compose command in main example project: docker-compose up 
 ```
 
+## Flink
+
+* Flink dashboard: http://localhost:8081
+
 ## Technologies
 
 * `Apache Pulsar`
