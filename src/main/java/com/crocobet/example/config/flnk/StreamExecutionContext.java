@@ -5,7 +5,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import java.util.function.Consumer;
 
-public class StreamExecutionEnvironmentRunner {
+public class StreamExecutionContext {
 
     /**
      * Create StreamExecutionEnvironment instance on constructor call
@@ -15,7 +15,7 @@ public class StreamExecutionEnvironmentRunner {
      * @param consumer Consumer of StreamExecutionEnvironment
      * @throws Exception On eny failure
      */
-    public StreamExecutionEnvironmentRunner(Consumer<StreamExecutionEnvironment> consumer) throws Exception {
+    public StreamExecutionContext(Consumer<StreamExecutionEnvironment> consumer) throws Exception {
         Configuration config = new Configuration();
         try (StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(config)) {
             consumer.accept(env);

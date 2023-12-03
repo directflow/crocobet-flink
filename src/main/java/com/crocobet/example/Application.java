@@ -1,7 +1,7 @@
 package com.crocobet.example;
 
 
-import com.crocobet.example.config.flnk.StreamExecutionEnvironmentRunner;
+import com.crocobet.example.config.flnk.StreamExecutionContext;
 import com.crocobet.example.stream.PulsarPaymentStream;
 
 public class Application {
@@ -14,6 +14,6 @@ public class Application {
      * @throws Exception In case of error during creation
      */
     public static void main(String[] args) throws Exception {
-        new StreamExecutionEnvironmentRunner(env -> new PulsarPaymentStream(env).run());
+        new StreamExecutionContext(env -> new PulsarPaymentStream(env).run());
     }
 }

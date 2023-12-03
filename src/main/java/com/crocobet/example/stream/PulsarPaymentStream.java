@@ -3,29 +3,18 @@ package com.crocobet.example.stream;
 import com.crocobet.example.config.flnk.PaymentPulsarSource;
 import com.crocobet.example.domain.Payment;
 import com.crocobet.example.function.PaymentSinkFunction;
+import lombok.RequiredArgsConstructor;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.connector.pulsar.source.PulsarSource;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class PulsarPaymentStream {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PulsarPaymentStream.class);
-
     private final StreamExecutionEnvironment streamExecutionEnvironment;
-
-    /**
-     * Dependency Injection of StreamExecutionEnvironment in constructor
-     *
-     * @param streamExecutionEnvironment StreamExecutionEnvironment instance
-     */
-    public PulsarPaymentStream(StreamExecutionEnvironment streamExecutionEnvironment) {
-        this.streamExecutionEnvironment = streamExecutionEnvironment;
-    }
 
     /**
      * Create pulsar source
@@ -59,7 +48,7 @@ public class PulsarPaymentStream {
         getDataStream()
                 .map(payment -> {
                     payment.setFlinkStream("Flink random:" + UUID.randomUUID());
-                    LOGGER.info(payment.toString());
+                    System.out.println(payment);
                     return payment;
                 })
                 .addSink(PaymentSinkFunction.insert())

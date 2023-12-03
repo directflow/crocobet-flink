@@ -2,14 +2,14 @@ package com.crocobet.example.config.flnk;
 
 import com.crocobet.example.config.Property;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import org.apache.flink.connector.pulsar.source.PulsarSource;
 import org.apache.flink.connector.pulsar.source.enumerator.cursor.StartCursor;
 import org.apache.pulsar.client.impl.schema.JSONSchema;
 
-import java.util.Objects;
-
 @Data
+@EqualsAndHashCode
 @RequiredArgsConstructor
 public class PulsarSourceBuilder {
 
@@ -34,33 +34,5 @@ public class PulsarSourceBuilder {
                 .setSubscriptionName(subscriptionName)
                 .setConsumerName(subscriptionName)
                 .build();
-    }
-
-    /**
-     * Override hashCode for correct working in map
-     *
-     * @return int of hashcode
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(topicName + subscriptionName);
-    }
-
-    /**
-     * Override equals for correct working in map
-     *
-     * @return Boolean result
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof PulsarSourceBuilder)) {
-            return false;
-        }
-        PulsarSourceBuilder pulsarSourceBuilder = (PulsarSourceBuilder) obj;
-        return pulsarSourceBuilder.getTopicName().equals(this.topicName)
-                && pulsarSourceBuilder.getSubscriptionName().equals(this.getSubscriptionName());
     }
 }
